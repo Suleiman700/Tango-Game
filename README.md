@@ -28,7 +28,6 @@ A beautiful and challenging puzzle game where you need to fill a grid with suns 
 - Hint system for help when stuck
 - Undo functionality
 - Modern cartoonish alerts
-- Debug mode for developers (add `?debug=yes` to URL)
 
 ## 🚀 Getting Started
 
