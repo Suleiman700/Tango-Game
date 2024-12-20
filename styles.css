@@ -1,0 +1,167 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f3f6f8;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.game-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+    padding: 16px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.game-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 600;
+}
+
+.logo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 4px);
+    grid-template-rows: repeat(3, 4px);
+    gap: 1px;
+}
+
+.logo-grid div {
+    background: #0a66c2;
+    width: 100%;
+    height: 100%;
+}
+
+.timer {
+    margin-left: auto;
+    color: #666;
+}
+
+.clear-btn, .help-btn {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: #666;
+}
+
+.help-btn {
+    font-weight: bold;
+}
+
+.puzzle-name {
+    text-align: center;
+    margin-bottom: 16px;
+    color: #1a1a1a;
+    font-weight: 500;
+}
+
+#game-board {
+    display: grid;
+    gap: 1px;
+    background: #e0e0e0;
+    padding: 1px;
+    margin: 0 auto 16px;
+    width: fit-content;
+}
+
+.cell {
+    width: 48px;
+    height: 48px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
+    position: relative;
+}
+
+.cell:hover {
+    background: #f5f5f5;
+}
+
+.operation {
+    position: absolute;
+    font-size: 12px;
+    color: #666;
+    font-weight: bold;
+    pointer-events: none;
+}
+
+.undo-btn {
+    width: 100%;
+    padding: 12px;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #666;
+    margin-bottom: 16px;
+}
+
+.game-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+#levelSelect {
+    padding: 6px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    flex: 1;
+}
+
+.play-btn {
+    background: #0a66c2;
+    color: white;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.random-btn {
+    background: white;
+    border: 1px solid #e0e0e0;
+    padding: 6px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.show-errors {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #666;
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    margin: 0;
+}
+
+.success {
+    background-color: #dcf5dc;
+    color: #0a5d0a;
+}
+
+.error {
+    background-color: #fde7e7;
+    color: #b71c1c;
+}
