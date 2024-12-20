@@ -2,6 +2,10 @@
 
 A beautiful and challenging puzzle game where you need to fill a grid with suns (☀️) and moons (🌑) following specific rules.
 
+![chrome_dZXgVUql72](https://github.com/user-attachments/assets/a798c07b-3749-41d2-80e1-c642899a36b5)
+
+https://github.com/user-attachments/assets/8ae01243-933f-4626-8dc9-308404386bad
+
 ## 🎯 Game Rules
 
 1. Fill each cell with either a sun (☀️) or moon (🌑)
