@@ -1,34 +1,70 @@
-# LinkedIn Tango Clone
+# Tango Puzzle Game 🎮
 
-A clone of the LinkedIn Tango puzzle game, built with HTML, JavaScript, and Tailwind CSS.
+A beautiful and challenging puzzle game where you need to fill a grid with suns (☀️) and moons (🌑) following specific rules.
 
-## Game Rules
+## 🎯 Game Rules
 
-1. Fill each cell with either a sun (☀️) or moon (🌙)
-2. No more than 2 of the same symbol may be next to each other
+1. Fill each cell with either a sun (☀️) or moon (🌑)
+2. No more than 2 of the same symbol may be adjacent (horizontally or vertically)
 3. Each row and column must have an equal number of suns and moons
-4. Cells separated by = must be the same type
-5. Cells separated by × must be opposite types
+4. Special cell relationships:
+   - Cells connected by `=` must contain the same symbol
+   - Cells connected by `×` must contain opposite symbols
 
-## Features
+## 🎲 How to Play
 
-- Multiple puzzle levels with increasing difficulty
-- Real-time error checking
-- Timer to track solving time
-- Undo move functionality
-- Clear board option
-- Random puzzle selection
-- Modern, responsive UI with Tailwind CSS
+1. Click any cell to cycle through: empty → sun → moon → empty
+2. Use the hint button if you get stuck (limited hints per level)
+3. Click "Check" to verify your solution
+4. Clear button resets the current level
+5. Timer shows how long you've been working on the current puzzle
 
-## How to Play
+## 🛠️ Features
 
-1. Click on empty cells to cycle through: empty → sun → moon → empty
-2. Use the "Show Errors" checkbox to see any mistakes in real-time
-3. Click "Play" to check if your solution is correct
-4. Use "Undo" to revert your last move
-5. Click "Clear" to reset the current puzzle
-6. Select different puzzles from the dropdown or click "Random" for a random puzzle
+- Multiple challenging levels
+- Beautiful animations and transitions
+- Mobile-friendly design
+- Timer to track your solving speed
+- Hint system for help when stuck
+- Undo functionality
+- Modern cartoonish alerts
+- Debug mode for developers (add `?debug=yes` to URL)
 
-## Dependencies
+## 🚀 Getting Started
 
-- Tailwind CSS (via CDN)
+1. Open `index.html` in a modern web browser
+2. Start with Level 1 to learn the basics
+3. Progress through increasingly challenging puzzles
+
+## 💻 Technical Details
+
+### Dependencies
+- Tailwind CSS for styling
+- SweetAlert2 for beautiful alerts
+- Pure JavaScript for game logic
+
+### Browser Support
+- Chrome (recommended)
+- Firefox
+- Safari
+- Edge
+
+## 🎨 Design
+
+The game features a modern, clean interface with:
+- Responsive grid layout
+- Smooth animations
+- Intuitive controls
+- Clear visual feedback
+- Cartoonish alert style
+
+## 🔧 Debug Mode
+
+Add `?debug=yes` to the URL to enable debug features:
+- Export current level state
+- View solution details
+- Additional developer tools
+
+## 📝 License
+
+MIT License - Feel free to use and modify!

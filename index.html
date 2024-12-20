@@ -6,6 +6,7 @@
     <title>Tango</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -14,7 +15,8 @@
             aspect-ratio: 1;
             user-select: none;
             transition: all 0.2s ease;
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            touch-action: manipulation;
         }
 
         .cell:hover {
@@ -53,12 +55,13 @@
 
         #board {
             display: grid;
-            /* gap: 0.5rem; */
             padding: 0.75rem;
             background: #f1f5f9;
             border-radius: 0.75rem;
             position: relative;
             margin: 0 auto;
+            width: 100%;
+            max-width: 500px;
         }
 
         .initial {
@@ -130,13 +133,93 @@
         .gradient-bg {
             background: linear-gradient(135deg, #0a66c2 0%, #0077b5 100%);
         }
+
+        /* Custom SweetAlert Styles */
+        .swal2-popup {
+            border-radius: 24px !important;
+            padding: 2rem !important;
+            background: #ffffff !important;
+            box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .swal2-title {
+            font-size: 1.8rem !important;
+            font-weight: 700 !important;
+            color: #1e293b !important;
+            padding: 1rem 0 !important;
+        }
+
+        .swal2-html-container {
+            font-size: 1.1rem !important;
+            color: #475569 !important;
+            margin: 1rem 0 !important;
+        }
+
+        .swal2-confirm {
+            padding: 0.75rem 2rem !important;
+            font-weight: 600 !important;
+            border-radius: 16px !important;
+            transition: all 0.2s !important;
+            background: linear-gradient(135deg, #0a66c2 0%, #0077b5 100%) !important;
+            box-shadow: 0 4px 12px rgba(10, 102, 194, 0.25) !important;
+        }
+
+        .swal2-confirm:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 6px 16px rgba(10, 102, 194, 0.3) !important;
+        }
+
+        .swal2-icon {
+            transform: scale(1.2) !important;
+            border-width: 4px !important;
+            margin: 2.5rem auto !important;
+        }
+
+        .swal2-success-circular-line-left,
+        .swal2-success-circular-line-right,
+        .swal2-success-fix {
+            background: transparent !important;
+        }
+
+        /* Bouncy animation for icons */
+        @keyframes swal2-bounce {
+            0% { transform: scale(0.8); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .swal2-icon.swal2-success,
+        .swal2-icon.swal2-error,
+        .swal2-icon.swal2-warning,
+        .swal2-icon.swal2-info {
+            animation: swal2-bounce 0.5s ease-out;
+        }
+
+        /* Custom animations */
+        @keyframes float {
+            0% { transform: translateY(0px); opacity: 0; }
+            100% { transform: translateY(-10px); opacity: 1; }
+        }
+
+        @keyframes floatOut {
+            0% { transform: translateY(-10px); opacity: 1; }
+            100% { transform: translateY(10px); opacity: 0; }
+        }
+
+        .swal2-popup.swal2-show {
+            animation: float 0.3s ease-out forwards !important;
+        }
+
+        .swal2-popup.swal2-hide {
+            animation: floatOut 0.3s ease-in forwards !important;
+        }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen">
-    <div class="max-w-4xl mx-auto p-8 mt-8">
-        <div class="bg-white rounded-2xl shadow-xl p-8 border border-slate-200">
+<body class="bg-slate-50">
+    <div class="max-w-4xl mx-auto p-4 sm:p-8 mt-4 sm:mt-8">
+        <div class="bg-white rounded-2xl shadow-xl p-4 sm:p-8 border border-slate-200">
             <!-- Header -->
-            <div class="flex items-center justify-between mb-10">
+            <div class="flex flex-col sm:flex-row items-center justify-between mb-6 sm:mb-10 gap-4">
                 <div class="flex items-center gap-4">
                     <div class="grid grid-cols-3 w-8 h-8 gradient-bg gap-[3px] p-[3px] rounded-lg shadow-lg">
                         <div class="bg-white rounded-[2px]"></div>
@@ -156,13 +239,6 @@
                     <button id="hintBtn" class="btn bg-amber-500 text-white py-2 px-4 rounded-xl hover:bg-amber-600 font-semibold shadow-lg">
                         Hint (3)
                     </button>
-                    <button id="clearBtn" class="btn text-slate-600 hover:text-slate-900 p-2">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        </svg>
-                        Reset
-                    </button>
-                    <button id="helpBtn" class="btn w-10 h-10 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 font-bold text-xl flex items-center justify-center">?</button>
                 </div>
             </div>
 
@@ -180,35 +256,31 @@
                 </div>
             </div>
 
-            <!-- Game Controls -->
-            <div class="flex justify-center gap-4 mb-8">
-                <div class="flex gap-2">
-                    <button id="undoBtn" class="btn w-10 h-10 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 font-bold text-xl flex items-center justify-center">↩</button>
-                    <button id="clearBtn" class="btn flex items-center gap-2 px-4 h-10 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        </svg>
-                        Reset
-                    </button>
-                    <button id="helpBtn" class="btn w-10 h-10 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 font-bold text-xl flex items-center justify-center">?</button>
-                </div>
-            </div>
-
             <!-- Controls -->
-            <div class="space-y-8">
-                <div class="flex flex-wrap gap-6 items-center">
-                    <select id="levelSelect" class="flex-1 py-4 px-6 border-2 border-slate-200 rounded-xl text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#0a66c2] focus:border-transparent text-lg font-medium">
+            <div class="space-y-6">
+                <!-- Game Controls -->
+                <div class="flex justify-center gap-4">
+                    <div class="flex gap-2">
+                        <button id="undoBtn" class="btn w-10 h-10 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 font-bold text-xl flex items-center justify-center">↩</button>
+                        <button id="clearBtn" class="btn flex items-center gap-2 px-4 h-10 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                            Reset
+                        </button>
+                        <button id="helpBtn" class="btn w-10 h-10 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 font-bold text-xl flex items-center justify-center">?</button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 items-stretch sm:items-center w-full">
+                    <select id="levelSelect" class="py-3 sm:py-4 px-4 sm:px-6 border-2 border-slate-200 rounded-xl text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#0a66c2] focus:border-transparent text-base sm:text-lg font-medium">
                     </select>
-                    <button id="playBtn" class="btn gradient-bg text-white py-4 px-10 rounded-xl hover:opacity-90 font-semibold text-lg shadow-lg">
+                    <button id="playBtn" class="btn gradient-bg text-white py-3 sm:py-4 px-6 sm:px-10 rounded-xl hover:opacity-90 font-semibold text-base sm:text-lg shadow-lg whitespace-nowrap">
                         Play
                     </button>
-                    <button id="randomBtn" class="btn border-2 border-slate-200 py-4 px-6 rounded-xl text-slate-700 hover:bg-slate-50 font-semibold text-lg">
+                    <button id="randomBtn" class="btn border-2 border-slate-200 py-3 sm:py-4 px-4 sm:px-6 rounded-xl text-slate-700 hover:bg-slate-50 font-semibold text-base sm:text-lg">
                         Random
                     </button>
-                    <label class="hidden">
-                        <input type="checkbox" id="showErrors" class="w-5 h-5 rounded border-slate-300 text-[#0a66c2] focus:ring-[#0a66c2]" checked>
-                        <span class="font-semibold text-lg">Show Errors</span>
-                    </label>
                 </div>
             </div>
         </div>

@@ -5,13 +5,13 @@ const MOON = 2;
 const SYMBOLS = {
     [EMPTY]: '',
     [SUN]: '☀️',
-    [MOON]: '🌙'
+    [MOON]: '🌑'
 };
 
 const LEVELS = [
     {
         id: 1,
-        name: "Puzzle #1 - Beginner",
+        name: "Puzzle #1",
         size: 4,
         hints: 4,
         initial: [
@@ -51,7 +51,7 @@ const LEVELS = [
     },
     {
         id: 2,
-        name: "Puzzle #2 - Intermediate",
+        name: "Puzzle #2",
         size: 4,
         hints: 2,
         initial: [
@@ -91,7 +91,7 @@ const LEVELS = [
     },
     {
         id: 3,
-        name: "Puzzle #3 - Advanced",
+        name: "Puzzle #3",
         size: 4,
         hints: 1,
         initial: [
@@ -136,7 +136,7 @@ const LEVELS = [
     },
     {
         id: 4,
-        name: "Puzzle #4 - Expert (6×6)",
+        name: "Puzzle #4",
         size: 6,
         hints: 3,
         initial: [
@@ -197,7 +197,125 @@ const LEVELS = [
                 cell2: { row: 3, col: 4 }
             }
         ]
-    }
+    },
+    {
+        id: 5,
+        name: "Puzzle #5",
+        size: 6,
+        hints: 4,
+        initial: [
+            [SUN, EMPTY, EMPTY, SUN, SUN, EMPTY],
+            [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY],
+            [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, MOON],
+            [EMPTY, SUN, EMPTY, SUN, MOON, EMPTY],
+            [EMPTY, EMPTY, EMPTY, EMPTY, MOON, EMPTY],
+            [SUN, SUN, EMPTY, EMPTY, EMPTY, EMPTY]
+        ],
+        operations: [
+            // Horizontal operations (=)
+            {
+                type: 'x',
+                cell1: { row: 0, col: 0 },
+                cell2: { row: 0, col: 1 }
+            },
+            {
+                type: 'x',
+                cell1: { row: 2, col: 1 },
+                cell2: { row: 2, col: 2 }
+            },
+        ],
+        solution: [
+            [SUN, MOON, MOON, SUN, SUN, MOON],
+            [MOON, SUN, SUN, MOON, MOON, SUN],
+            [SUN, MOON, SUN, MOON, SUN, MOON],
+            [MOON, SUN, MOON, SUN, MOON, SUN],
+            [MOON, MOON, SUN, SUN, MOON, SUN],
+            [SUN, SUN, MOON, MOON, SUN, MOON]
+        ]
+    },
+    {
+        id: 5,
+        name: "Puzzle #6",
+        size: 6,
+        hints: 4,
+        initial: [
+            [MOON, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY],
+            [EMPTY, SUN, EMPTY, SUN, EMPTY, EMPTY],
+            [EMPTY, MOON, EMPTY, SUN, SUN, EMPTY],
+            [EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY],
+            [EMPTY, EMPTY, MOON, EMPTY, EMPTY, SUN],
+            [EMPTY, SUN, EMPTY, EMPTY, EMPTY, EMPTY],
+        ],
+        operations: [
+            {
+                type: 'x',
+                cell1: { row: 0, col: 5 },
+                cell2: { row: 1, col: 5 }
+            },
+            {
+                type: 'x',
+                cell1: { row: 4, col: 5 },
+                cell2: { row: 5, col: 5 }
+            },
+            {
+                type: '=',
+                cell1: { row: 3, col: 1 },
+                cell2: { row: 3, col: 2 }
+            },
+        ],
+        solution: [
+            [MOON, MOON, SUN, MOON, SUN, SUN],
+            [SUN, SUN, MOON, SUN, MOON, MOON],
+            [SUN, MOON, MOON, SUN, SUN, MOON],
+            [MOON, SUN, SUN, MOON, MOON, SUN],
+            [SUN, MOON, MOON, SUN, MOON, SUN],
+            [MOON, SUN, SUN, MOON, SUN, MOON],
+        ]
+    },
+    {
+        id: 6,
+        name: "Puzzle #7",
+        size: 6,
+        hints: 4,
+        initial: [
+            [MOON, EMPTY, MOON, EMPTY, EMPTY, EMPTY],
+            [EMPTY, EMPTY, SUN, EMPTY, MOON, EMPTY],
+            [SUN, EMPTY, EMPTY, EMPTY, EMPTY, SUN],
+            [MOON, EMPTY, MOON, EMPTY, EMPTY, EMPTY],
+            [EMPTY, MOON, EMPTY, EMPTY, EMPTY, SUN],
+            [EMPTY, MOON, EMPTY, SUN, EMPTY, EMPTY],
+        ],
+        operations: [
+            {
+                type: 'x',
+                cell1: { row: 0, col: 1 },
+                cell2: { row: 0, col: 2 }
+            },
+            {
+                type: 'x',
+                cell1: { row: 2, col: 4 },
+                cell2: { row: 2, col: 5 }
+            },
+            {
+                type: 'x',
+                cell1: { row: 3, col: 4 },
+                cell2: { row: 4, col: 4 }
+            },
+            {
+                type: 'x',
+                cell1: { row: 4, col: 1 },
+                cell2: { row: 4, col: 2 }
+            },
+        ],
+        solution: [
+            [MOON, SUN, MOON, SUN, SUN, MOON],
+            [MOON, SUN, SUN, MOON, MOON, SUN],
+            [SUN, MOON, SUN, MOON, MOON, SUN],
+            [MOON, SUN, MOON, SUN, SUN, MOON],
+            [SUN, MOON, SUN, MOON, MOON, SUN],
+            [SUN, MOON, MOON, SUN, SUN, MOON],
+        ]
+    },
 ];
 
 class TangoGame {
@@ -447,7 +565,7 @@ class TangoGame {
         this.currentLevel.operations.forEach(op => {
             const cell1 = this.board[op.cell1.row][op.cell1.col];
             const cell2 = this.board[op.cell2.row][op.cell2.col];
-            console.log(`Operation ${op.type} at (${op.cell1.row},${op.cell1.col}) = ${SYMBOLS[cell1]} and (${op.cell2.row},${op.cell2.col}) = ${SYMBOLS[cell2]}`);
+            // console.log(`Operation ${op.type} at (${op.cell1.row},${op.cell1.col}) = ${SYMBOLS[cell1]} and (${op.cell2.row},${op.cell2.col}) = ${SYMBOLS[cell2]}`);
         });
 
         // Check for three consecutive same symbols
@@ -515,18 +633,42 @@ class TangoGame {
             // Success animation with delay to show the last move
             setTimeout(() => {
                 const cells = document.querySelectorAll('.cell');
+                const nonInitialCells = Array.from(cells).filter((cell, index) => {
+                    const row = Math.floor(index / this.currentLevel.size);
+                    const col = index % this.currentLevel.size;
+                    return this.currentLevel.initial[row][col] === EMPTY;
+                });
+
+                cells.forEach(cell => {
+                    cell.classList.remove('initial');
+                });
+
+                // Animate only non-initial cells with faster timing
                 cells.forEach((cell, i) => {
                     setTimeout(() => {
                         cell.classList.add('win-animation');
-                        cell.classList.add('pop');
-                        setTimeout(() => cell.classList.remove('pop'), 300);
-                    }, i * 50);
+                    }, i * 25); // Reduced from 50ms to 25ms
                 });
                 
                 setTimeout(() => {
-                    alert('Congratulations! Puzzle solved correctly!');
+                    Swal.fire({
+                        title: '🎉 Amazing Job! 🌟',
+                        text: 'You solved the puzzle perfectly!',
+                        icon: 'success',
+                        showConfirmButton: true,
+                        background: '#ffffff',
+                        showClass: {
+                            popup: 'swal2-show'
+                        },
+                        hideClass: {
+                            popup: 'swal2-hide'
+                        },
+                        willClose: () => {
+                            return new Promise(resolve => setTimeout(resolve, 300));
+                        }
+                    });
                     clearInterval(this.timerInterval);
-                }, cells.length * 50 + 300);
+                }, nonInitialCells.length * 25 + 200); // Reduced delay before showing success message
             }, 300);
         }
     }
@@ -535,87 +677,140 @@ class TangoGame {
         // Check if board is complete
         const hasEmpty = this.board.some(row => row.includes(EMPTY));
         if (hasEmpty) {
-            alert('Please fill all cells before checking the solution');
+            Swal.fire({
+                title: 'Oopsie! 😅',
+                text: 'Fill in all the cells before checking',
+                icon: 'warning',
+                showConfirmButton: true,
+                background: '#ffffff',
+                showClass: {
+                    popup: 'swal2-show'
+                },
+                hideClass: {
+                    popup: 'swal2-hide'
+                },
+                willClose: () => {
+                    return new Promise(resolve => setTimeout(resolve, 300));
+                }
+            });
             return;
         }
 
-        // Compare with solution pattern
-        const isCorrect = this.board.every((row, i) => 
-            row.every((cell, j) => cell === this.currentLevel.solution[i][j])
-        );
-
-        if (isCorrect) {
-            // Success animation
+        if (this.isSolutionCorrect()) {
+            // Get all cells that were not in the initial setup
             const cells = document.querySelectorAll('.cell');
-            cells.forEach((cell, i) => {
+            const nonInitialCells = Array.from(cells).filter((cell, index) => {
+                const row = Math.floor(index / this.currentLevel.size);
+                const col = index % this.currentLevel.size;
+                return this.currentLevel.initial[row][col] === EMPTY;
+            });
+
+            // Animate only non-initial cells with faster timing
+            nonInitialCells.forEach((cell, i) => {
                 setTimeout(() => {
                     cell.classList.add('win-animation');
-                    cell.classList.add('pop');
-                    setTimeout(() => cell.classList.remove('pop'), 300);
-                }, i * 50);
+                }, i * 25); // Reduced from 50ms to 25ms
             });
             
             setTimeout(() => {
-                alert('Congratulations! Puzzle solved correctly!');
-                clearInterval(this.timerInterval);
-            }, cells.length * 50 + 300);
-        } else {
-            alert('Solution is not correct. Keep trying!');
-            // Shake animation for errors
-            if (document.getElementById('showErrors').checked) {
-                const errors = this.findErrors();
-                errors.forEach(([row, col]) => {
-                    const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
-                    cell.classList.add('pop');
-                    setTimeout(() => cell.classList.remove('pop'), 300);
+                Swal.fire({
+                    title: '🎉 Amazing Job! 🌟',
+                    text: 'You solved the puzzle perfectly!',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 2500,
+                    timerProgressBar: true,
+                    background: '#ffffff',
+                    showClass: {
+                        popup: 'swal2-show'
+                    },
+                    hideClass: {
+                        popup: 'swal2-hide'
+                    },
+                    willClose: () => {
+                        return new Promise(resolve => setTimeout(resolve, 300));
+                    }
                 });
-            }
+                clearInterval(this.timerInterval);
+            }, nonInitialCells.length * 25 + 200); // Reduced delay before showing success message
+        } else {
+            Swal.fire({
+                title: 'Not Quite Right 🤔',
+                text: 'Keep trying! You\'re getting closer!',
+                icon: 'error',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                background: '#ffffff',
+                showClass: {
+                    popup: 'swal2-show'
+                },
+                hideClass: {
+                    popup: 'swal2-hide'
+                },
+                willClose: () => {
+                    return new Promise(resolve => setTimeout(resolve, 300));
+                }
+            });
         }
-    }
-
-    startTimer() {
-        if (this.timerInterval) {
-            clearInterval(this.timerInterval);
-        }
-        this.timer = 0;
-        this.updateTimerDisplay();
-        this.timerInterval = setInterval(() => {
-            this.timer++;
-            this.updateTimerDisplay();
-        }, 1000);
-    }
-
-    resetTimer() {
-        if (this.timerInterval) {
-            clearInterval(this.timerInterval);
-        }
-        this.timer = 0;
-        this.updateTimerDisplay();
-        this.startTimer();
-    }
-
-    updateTimerDisplay() {
-        const minutes = Math.floor(this.timer / 60);
-        const seconds = this.timer % 60;
-        document.getElementById('timer').textContent = 
-            `${minutes}:${seconds.toString().padStart(2, '0')}`;
     }
 
     showHelp() {
-        alert(
-            'How to play Tango:\n\n' +
-            '1. Fill each cell with either a sun (☀️) or moon (🌙)\n' +
-            '2. No more than 2 of the same symbol may be next to each other\n' +
-            '3. Each row and column must have an equal number of suns and moons\n' +
-            '4. Cells separated by = must be the same type\n' +
-            '5. Cells separated by must be opposite types\n\n' +
-            'Click cells to cycle through: empty → sun → moon → empty'
-        );
+        Swal.fire({
+            title: '🎮 How to Play Tango',
+            html: `
+                <div class="text-left space-y-4">
+                    <p class="text-lg font-medium mb-4">Fill each cell with either a sun (☀️) or moon (🌑):</p>
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3">
+                            <span class="text-2xl">1️⃣</span>
+                            <p>No more than 2 of the same symbol may be next to each other</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="text-2xl">2️⃣</span>
+                            <p>Each row and column must have an equal number of suns and moons</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="text-2xl">3️⃣</span>
+                            <p>Cells separated by = must be the same type</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="text-2xl">4️⃣</span>
+                            <p>Cells separated by × must be opposite types</p>
+                        </div>
+                    </div>
+                    <p class="mt-4 text-sm text-slate-500">Click cells to cycle through: empty → sun → moon → empty</p>
+                </div>
+            `,
+            confirmButtonText: 'Let\'s Play! 🎲',
+            showConfirmButton: true,
+            confirmButtonColor: '#0a66c2',
+            background: '#ffffff',
+            showClass: {
+                popup: 'swal2-show'
+            },
+            hideClass: {
+                popup: 'swal2-hide'
+            },
+            willClose: () => {
+                return new Promise(resolve => setTimeout(resolve, 300));
+            }
+        });
     }
 
     showHint() {
         if (this.hintsRemaining <= 0) {
-            alert('No hints remaining for this level!');
+            Swal.fire({
+                title: 'No More Hints! 🤓',
+                text: 'Try solving it yourself - you can do it!',
+                icon: 'info',
+                showConfirmButton: false,
+                timer: 2000,
+                background: '#ffffff',
+                customClass: {
+                    popup: 'animated bounceIn'
+                }
+            });
             return;
         }
 
@@ -630,7 +825,17 @@ class TangoGame {
         }
 
         if (availableHints.length === 0) {
-            alert('No hints available - you are on the right track!');
+            Swal.fire({
+                title: 'You\'re Doing Great! 🌟',
+                text: 'No hints needed - you\'re on the right track!',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 2000,
+                background: '#ffffff',
+                customClass: {
+                    popup: 'animated bounceIn'
+                }
+            });
             return;
         }
 
@@ -665,6 +870,40 @@ class TangoGame {
         } else {
             hintBtn.classList.remove('opacity-50', 'cursor-not-allowed');
         }
+    }
+
+    startTimer() {
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+        }
+        this.timer = 0;
+        this.updateTimerDisplay();
+        this.timerInterval = setInterval(() => {
+            this.timer++;
+            this.updateTimerDisplay();
+        }, 1000);
+    }
+
+    resetTimer() {
+        if (this.timerInterval) {
+            clearInterval(this.timerInterval);
+        }
+        this.timer = 0;
+        this.updateTimerDisplay();
+        this.startTimer();
+    }
+
+    updateTimerDisplay() {
+        const minutes = Math.floor(this.timer / 60);
+        const seconds = this.timer % 60;
+        document.getElementById('timer').textContent = 
+            `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    isSolutionCorrect() {
+        return this.board.every((row, i) => 
+            row.every((cell, j) => cell === this.currentLevel.solution[i][j])
+        );
     }
 }
 
